@@ -1,0 +1,29 @@
+from odoo import models, fields
+
+class Product(models.Model):
+    _name = 'product.product' # Name of model to use, acces data in all the operations
+    _description = 'Product' # Name of model to identify the model
+
+    name = fields.Char(string='Name', required=True)
+    description = fields.Text(string='Description')
+    list_price = fields.Float(string='List Price', default=0.0)
+    type = fields.Selection([
+        ('service', 'Service'),
+        ('product', 'Product')
+    ], string='Type', required=True)
+    category_id = fields.Many2one('product.category', string='Category')
+
+
+
+
+
+
+
+
+# Appropriate Field Types: Choose field types based on the kind of data you are managing. Odoo provides various field types such as Char, Text, Integer, Float, Many2one, One2many, Many2many, etc. This ensures proper data validation and relationships.
+
+# Default Values : Use the default attribute to set default values for fields. This is useful for fields that should have a standard value when new records are created.
+
+# Inheritance : Use inheritance to create hierarchies of related objects, promoting code reusability and flexibility.
+
+# Constraints: Define constraints (e.g., required fields, unique values) to enforce data validity and consistency.

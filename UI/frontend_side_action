@@ -1,0 +1,70 @@
+odoo.define('module_name.js_name', function (require) {
+    'use strict';
+
+    var core = require('web.core');
+    var Widget = require('web.Widget');
+
+    var MyAction = Widget.extend({
+        template : 'demo_template',
+
+        // Bind event handlers  
+        events: {
+            'click .my_button img': 'onButtonClick',
+        },
+
+        init: function (parent, context) {
+            this._super(parent, context);
+
+            // Initialize any necessary data or state
+            this.myData = context.params.myData;
+        },
+
+        start: function () {
+            this._super();
+
+            // Perform any initial setup or rendering
+            this.$('.my_element').text(this.myData);
+        },
+
+        onButtonClick: function () {
+            // Handle button click event
+            var self = this;
+
+            // Perform asynchronous operation (e.g., making an RPC call)
+            this._rpc({
+                model: 'my_model',
+                method: 'my_method',
+                args: [this.myData]
+            }).then(function (result) {
+                // Update UI based on the result
+                self.$('.my_result').text(result);
+            }).catch(function (error) {
+                // Handle errors gracefully
+                console.error(error);
+                self.$('.my_result').text('An error occurred.');
+            });
+        }
+    });
+
+    core.action_registry.add('my_action', MyAction);
+});
+
+
+
+/*
+- explanation
+================
+
+
+- Modular Definition : Use odoo.define to define your module. This ensures that your JavaScript code is encapsulated and does not pollute the global namespace, which prevents conflicts with other modules.
+
+- Dependencies Management : Use require to import necessary Odoo components. This method ensures that your module has access to the required components without including unnecessary dependencies.
+
+- Event Binding : Bind events to DOM elements to handle user interactions.
+
+- Lifecycle Methods : Follow the life cycle of methods to manage and hadle operations. 
+
+- Asynchronous Behavior : while making server requests to perform operation after the response and handle the error withing the function.
+
+
+*/

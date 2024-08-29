@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1"> <!-- Attribute "noupdate"(Boolean) in data tag use to initialized records inside it only at installation time if set to 1 -->
+
+        <!-- Product Category record -->
+        <record id="product_category_record" model="product.category">
+            <field name="name">product category name</field>
+        </record>
+
+        <!-- Product Template record -->
+        <record id="product_template_record" model="product.template">
+            <field name="name">Product Name</field>
+            <field name="categ_id" ref="product_category_record"/> <!-- The many2One field must have a record created of it to refer in "ref" attribute -->
+            <field name="standard_price">0.0</field>
+            <field name="list_price">0.0</field>
+            <field name="description_sale">Product Description</field>
+        </record>
+
+    </data>
+</odoo>
+
+
+
+<!-- Ensure that your module's manifest file (__manifest__.py) includes the XML data file in the data list.
+
+# __manifest__.py
+
+{
+    'name': 'Module Name',
+    'version': '1.0',
+    'depends': ['base'],
+    'data': [
+        'data/data_records.xml',
+    ],
+    'installable': True,
+    'application': True,
+} -->

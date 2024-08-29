@@ -1,0 +1,36 @@
+class ClassName(models.Model):
+    _inherit = 'model.name'
+
+
+    computed_field_1 = fields.Char(compute='_compute_common_logic')
+    computed_field_2 = fields.Char(compute='_compute_common_logic')
+
+    def _compute_common_logic(self):
+        for record in self:
+            # Common computation logic
+            result = 'Some computation'
+            record.computed_field_1 = result
+            record.computed_field_2 = result
+
+
+    def _common_method(self):
+        # Common logic here
+        pass
+
+    def action_confirm(self):
+        self._common_method()
+        # Additional logic specific to action_confirm
+        super(SaleOrder, self).action_confirm()
+
+    def action_some_other_action(self):
+        self._common_method()
+        # Additional logic specific to action_some_other_action
+
+
+
+
+# - Avoid Code Duplication: Refactor duplicated code into methods or modules that can be shared. This applies to both server actions and computed fields.
+
+# - Use Inheritance and Mixins: Use model inheritance to extend existing functionality without duplicating code. Mixins can provide reusable methods across different models.
+
+# - Consistent Method Names: Use consistent naming conventions for methods and fields to make it easier to identify and reuse common logic.

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Define the assets bundle for your module -->
+    <template id="assets_backend" name="test assets backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <!-- Load your custom JavaScript file -->
+            <script type="text/javascript" src="/module_name/static/src/js/file_name.js"/> <!-- The sourch js file contains all the js code -->
+        </xpath>
+    </template>
+
+
+    <!-- The js code works indide the XML view as well but it has limits and odoo does't use this method -->
+    <record id="model_name_view_form" model="ir.ui.view">
+        <field name="name">model.name.form</field>
+        <field name="model">model.name</field>
+        <field name="arch" type="xml">
+            <form string="form name">
+            <script>
+                odoo.define('module.js_file', function(require) {
+                    require('web.dom_ready');
+
+                    $(document).ready(function() {
+                        $('a.g_meet').click(function() {
+                            window.open("https://meet.google.com","Ratting","width=750,height=450,left=320,top=120,toolbar=0,status=0,");
+                        });
+                    });
+
+                });
+            </script>
+                <sheet>
+                    <group>
+                        <a class="btn btn-primary g_meet">Google Meet</a>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+
+
+<!-- the js is generally written separately and gets added to the related bundle and adding script inside the views and templates is very rare -->

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- A form for your modelled data -->
+    <record id="model_name_view_form" model="ir.ui.view">
+        <field name="name">model.name.form</field> <!-- The name of the view -->
+        <field name="model">model.name</field>  <!-- The model to which this view applies -->
+        <field name="arch" type="xml">  <!-- This field contains View Architecture, including fields and layout -->
+            <form string="form name"> <!-- Specifies that this is a form view -->
+                <sheet>  <!-- This tag add a container with specific padding/margin in the page -->
+                    <group> <!-- This tag Creates a group where fields inside it aligned in single section -->
+                        <group>
+                            <field name="field_name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define an action to open the form view -->
+    <record id="action_model_name_form" model="ir.actions.act_window">
+        <field name="name">Model name</field>
+        <field name="res_model">model.name</field> <!-- The model associated with this action -->
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="model_name_view_form"/> <!-- Links to the form view defined above -->
+        <field name="target">new</field>
+    </record>
+
+    <!-- Add a menu item to access the form view -->
+    <menuitem id="test_menu_root" name="Test Menu Root"/>
+    <menuitem id="test_menu_1" name="Test Menu 1" parent="test_menu_root" action="action_model_name_form"/> <!-- Adds a sub-menu item that opens the form view by adding action in it -->
+
+</odoo>
+
+
+
+
+
+<!-- Ensure that your module’s manifest file (__manifest__.py) includes the XML file in the data list.
+# __manifest__.py
+
+{
+    'name': 'Module name',
+    'version': '1.0',
+    'depends': ['base'],
+    'data': [
+        'views/form_view.xml',
+    ],
+    'installable': True,
+    'application': True,
+} -->
