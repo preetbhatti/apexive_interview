@@ -1,0 +1,21 @@
+<odoo>
+    <!-- Inherited Attendance form view to add the project, task, to_do and update fields in it-->
+    <record id="hr_attendance_inherit_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.form.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <separator string="Project Task Deails"/>
+                <group id="project_task_details">
+                    <group>
+                        <field name="project_id" widget="many2one"/>
+                        <field name="task_id" widget="many2one"/>
+                        <field name="todo"/>
+                        <field name="update" invisible="not check_out"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

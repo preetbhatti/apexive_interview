@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Inherited attendance menu to add the project/task Dropdown, todo/update inputs to let user update while checkin and checkout-->
+    <t t-name="hr_holidays_attendance.TimeOffCard" t-inherit="hr_attendance.attendance_menu" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_att_menu_container')]" position="before">
+            <div class="mb8" t-if="!this.state.checkedIn">
+                <div t-if="this.employee.projects" class="col project_section">
+                    <b>Project</b>
+                    <select id="projects_list" t-on-change="onSelectionProject">
+                        <option value="" selected="true">Select Project</option>
+                        <t t-foreach="this.employee.projects" t-as="project" t-key="project_index">
+                            <option t-att-value="project.id">
+                                <span t-esc="project.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="state.tasks.length" class="col task_section">
+                    <b>Task</b>
+                    <select id="tasks_list">
+                        <option value="" selected="true">Select Task</option>
+                        <t t-foreach="state.tasks" t-as="task" t-key="task_index">
+                            <option t-att-value="task.id">
+                                <span t-esc="task.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="todo mb8">
+                    <b>To Do</b>
+                    <textarea id="todo"/>
+                </div>
+            </div>
+            <div class="mb8" t-if="this.state.checkedIn">
+                <div class="update">
+                    <b>Update</b>
+                    <textarea id="update"/>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>
